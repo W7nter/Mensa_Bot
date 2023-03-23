@@ -1,0 +1,10 @@
+# Ignore Database
+*.db
+*.sqlite
+
+# Ignore secrets
+.env
+
+# Ignore Nvim 
+
+tags*
