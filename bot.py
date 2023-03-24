@@ -2,7 +2,6 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from datetime import date, time
-import numpy as np
 import pandas as pd
 from dotenv import load_dotenv
 import logging
