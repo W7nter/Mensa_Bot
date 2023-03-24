@@ -5,6 +5,13 @@
 # Ignore secrets
 .env
 
+# Ignore venv
+pyvenv.cfg
+bin/
+lib/
+include/
+share/
+
 # Ignore Nvim 
 
 tags*
