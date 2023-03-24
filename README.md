@@ -10,15 +10,15 @@ The long and tiring way to the Mensa didn't even pay of. You should have just st
 
 Introducing the Fries Alert. It will send you a status update each day at 11 am if fries are available or not.
 # How to 
-Just add the TU_Pommes_bot on Telegram and send it the commands for the updates you want
+Just add  [@TU_Pommes_bot](t.me/TU_Pommes_bot) on Telegram and send it the commands for the updates you want.
 
 ## Commands
 |Commands 	|What they do			|
 |--------------:|-------------------------------|
-|\Menu		|Subscribe to menu updates	|
-|\Pommes	|Subscribe to the Fries Alert	|
-|\MenuStop	|Unsubscribe from menu updates	|
-|\Pommesstop	|Unsubscribe from Fries Alert	|
+|/Menu		|Subscribe to menu updates	|
+|/Pommes	|Subscribe to the Fries Alert	|
+|/MenuStop	|Unsubscribe from menu updates	|
+|/Pommesstop	|Unsubscribe from Fries Alert	|
 
 
 # How What Why
