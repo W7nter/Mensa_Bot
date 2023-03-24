@@ -1,0 +1,11 @@
+[Unit]
+Description=Mensabot
+After=network.target
+
+[Service]
+ExecStart=/home/pi/Mensa_Bot/venv/bin/python bot.py
+WorkingDirectory=/home/pi/Mensa_Bot
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
