@@ -1,0 +1,7 @@
+lxml
+requests
+bs4
+peewee
+pandas
+python-dotenv
+python-telegram-bot[job-queue]
