@@ -24,3 +24,9 @@ Just add  [@TU_Pommes_bot](t.me/TU_Pommes_bot) on Telegram and send it the comma
 # How What Why
 This is a hobby project and the bot is hosted on Raspberry Pi 3B. 
 Because of this I can't guarantee 100% uptime or continuous updates.
+
+# Credits
+Hugely inspired by:
+https://github.com/SepplL/mensabot
+
+https://github.com/maxnoe/mensabot
