@@ -2,6 +2,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from datetime import date, time
+from pytz import timezone
 import pandas as pd
 from dotenv import load_dotenv
 import logging
@@ -14,7 +15,9 @@ load_dotenv()
 token = os.environ['BOT_TOKEN']
 db_path = os.environ['DB_PATH']
 
-send_time = time(hour=10)
+
+berlin = timezone('Europe/Berlin')
+send_time = time(hour=11, tzinfo=berlin)
 
 
 # Setup Logging
