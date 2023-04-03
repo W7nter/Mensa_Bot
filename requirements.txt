@@ -5,3 +5,4 @@ peewee
 pandas
 python-dotenv
 python-telegram-bot[job-queue]
+pytz
