@@ -1,5 +1,6 @@
 import os
 import requests
+import asyncio
 from bs4 import BeautifulSoup
 from datetime import date, time
 from pytz import timezone
@@ -8,7 +9,7 @@ from dotenv import load_dotenv
 import logging
 from peewee import SqliteDatabase, IntegerField, Model
 from telegram import Update
-from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
+from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, AIORateLimiter
 
 # Loading Variables
 load_dotenv()
@@ -153,15 +154,24 @@ async def fries_rem(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # Functions to send Messages
 
+def send_msg(context, database, msg_txt):
+    # Generator to create all send message jobs
+    for client in database.select():
+        logging.info(f"Sending message to {client.chat_id}")
+        yield context.bot.send_message(chat_id=client.chat_id, text=msg_txt)
+
+
 async def menu_message(context: ContextTypes.DEFAULT_TYPE):
     logging.info("Getting update for Menu messages")
 
     main, _ = parse_menu()
     message = gen_message(main)
+    
+    logging.info("Start sending menu")
+    msg_gen = send_msg(context, Menu, message)
+    context.application.create_task(asyncio.gather(*msg_gen))
+    logging.info("Finished sending menu")
 
-    for client in Menu.select():
-        logging.info(f"Sending Menu to {client.chat_id}")
-        await context.bot.send_message(chat_id=client.chat_id, text=message)
 
 async def fries_message(context: ContextTypes.DEFAULT_TYPE):
     logging.info("Getting update for Fries messages")
@@ -169,14 +179,20 @@ async def fries_message(context: ContextTypes.DEFAULT_TYPE):
     _, side = parse_menu()
 
     if check_fries(side):
-        for client in Fries.select():
-            logging.info(f"Sending Fries message to {client.chat_id}")
-            await context.bot.send_message(chat_id=client.chat_id, text="Es ist alles gut, die Welt ist in ordnung, es gibt Pommes")
+        logging.info("Start sending fries alert")
+        message = "Es ist alles gut, die Welt ist in ordnung, es gibt Pommes"
+        msg_gen = send_msg(context, Fries, message)
+        context.application.create_task(asyncio.gather(*msg_gen))
+        logging.info("Finished sending fries alert")
+
     else:
-        for client in Fries.select():
-            logging.info(f"Sending no Fries Alarm to {client.chat_id}")
-            await context.bot.send_message(chat_id=client.chat_id, text="\N{warning sign} Das ist keine Übung: Es gibt heute keine Pommes in der Mensa \N{warning sign}")
- 
+        logging.info("Start sending no fries alert")
+        message = "\N{warning sign} Das ist keine Übung: Es gibt heute keine Pommes in der Mensa \N{warning sign}"
+        msg_gen = send_msg(context, Fries, message)
+        context.application.create_task(asyncio.gather(*msg_gen))
+        logging.info("Finished sending no fries alert")
+
+
 
 if __name__ == '__main__':
     db.connect()
@@ -184,7 +200,8 @@ if __name__ == '__main__':
     Fries.create_table(safe=True)
  
     # Setup Telegram Bot
-    application = ApplicationBuilder().token(token).build()
+    Rate_Lim = AIORateLimiter(overall_max_rate=20, group_max_rate=5, max_retries=5) 
+    application = ApplicationBuilder().token(token).rate_limiter(Rate_Lim).build()
 
 
     # Auto generated messages

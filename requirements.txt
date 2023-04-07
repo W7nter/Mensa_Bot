@@ -4,5 +4,5 @@ bs4
 peewee
 pandas
 python-dotenv
-python-telegram-bot[job-queue]
+python-telegram-bot[job-queue, rate-limiter]
 pytz
