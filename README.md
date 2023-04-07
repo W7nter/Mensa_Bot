@@ -1,3 +1,5 @@
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 # Mensa bot
 We all know that feeling of our minds wandering of, contemplating what the gods of food will bring us today. 
 In this moment opening the TU Dortmund App seems like a sheer insurmountalbe task.
