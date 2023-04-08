@@ -241,7 +241,14 @@ if __name__ == "__main__":
 
     # Setup Telegram Bot
     Rate_Lim = AIORateLimiter(overall_max_rate=20, group_max_rate=5, max_retries=5)
-    application = ApplicationBuilder().token(token).rate_limiter(Rate_Lim).build()
+    application = (
+        ApplicationBuilder()
+        .token(token)
+        .http_version("1.1")
+        .get_updates_http_version("1.1")
+        .rate_limiter(Rate_Lim)
+        .build()
+    )
 
     # Auto generated messages
     job_queue = application.job_queue
