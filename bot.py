@@ -251,9 +251,14 @@ if __name__ == "__main__":
     )
 
     # Auto generated messages
+    scheduler_kwargs = {"misfire_grace_time": 3600}
     job_queue = application.job_queue
-    job_Menu = job_queue.run_daily(menu_message, time=send_time, days=(1, 2, 3, 4, 5))
-    job_Fries = job_queue.run_daily(fries_message, time=send_time, days=(1, 2, 3, 4, 5))
+    job_Menu = job_queue.run_daily(
+        menu_message, time=send_time, days=(1, 2, 3, 4, 5), job_kwargs=scheduler_kwargs
+    )
+    job_Fries = job_queue.run_daily(
+        fries_message, time=send_time, days=(1, 2, 3, 4, 5), job_kwargs=scheduler_kwargs
+    )
 
     # Command Handler Functions
     menu_signup_handler = CommandHandler("Menu", menu_signup)
