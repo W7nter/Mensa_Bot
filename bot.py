@@ -10,6 +10,7 @@ import logging
 from peewee import SqliteDatabase, IntegerField, Model
 from telegram import Update
 from telegram.ext import (
+    Application,
     ApplicationBuilder,
     ContextTypes,
     CommandHandler,
@@ -234,6 +235,13 @@ async def fries_message(context: ContextTypes.DEFAULT_TYPE):
         logging.info("Finished sending no fries alert")
 
 
+
+# shutdown function:
+async def db_shutdown(application: Application):
+    logging.info("Closing Data Base connection")
+    db.close()
+
+
 if __name__ == "__main__":
     db.connect()
     Menu.create_table(safe=True)
@@ -247,6 +255,7 @@ if __name__ == "__main__":
         .http_version("1.1")
         .get_updates_http_version("1.1")
         .rate_limiter(Rate_Lim)
+        .post_shutdown(db_shutdown)
         .build()
     )
 
