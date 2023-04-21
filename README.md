@@ -19,8 +19,10 @@ Just add  [@TU_Pommes_bot](t.me/TU_Pommes_bot) on Telegram and send it the comma
 |--------------:|-------------------------------|
 |/Menu		|Subscribe to menu updates	|
 |/Pommes	|Subscribe to the Fries Alert	|
+|/Veggi		|Subscribe to veggi menu	|
 |/MenuStop	|Unsubscribe from menu updates	|
 |/Pommesstop	|Unsubscribe from Fries Alert	|
+|/VeggiStop	|Unsubscribe from veggi menu	|
 
 
 # How What Why
