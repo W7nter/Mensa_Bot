@@ -287,7 +287,7 @@ async def fries_message(context: ContextTypes.DEFAULT_TYPE):
 
     if check_fries(side):
         logging.info("Start sending fries alert")
-        message = "Es ist alles gut, die Welt ist in ordnung, es gibt Pommes"
+        message = "Es ist alles gut, die Welt ist in Ordnung, es gibt Pommes"
         msg_gen = send_msg(context, Fries, message)
         context.application.create_task(asyncio.gather(*msg_gen))
         logging.info("Finished sending fries alert")
