@@ -50,6 +50,7 @@ class Fries(Model):
     class Meta:
         database = db
 
+
 # Users who recive vegitarian menu
 class Veggi(Model):
     chat_id = IntegerField(unique=True)
@@ -172,23 +173,24 @@ async def fries_signup(update: Update, context: ContextTypes.DEFAULT_TYPE):
         logging.info(f"{update.effective_chat.id} was already registered for Fries")
 
 
-# Register new User for Veggi 
+# Register new User for Veggi
 async def veggi_signup(update: Update, context: ContextTypes.DEFAULT_TYPE):
     new_client, created = Veggi.get_or_create(chat_id=update.effective_chat.id)
     logging.info(f"{update.effective_chat.id} tried to register for Veggi")
 
     if created:
         await context.bot.send_message(
-            chat_id=update.effective_chat.id, text="Du erhälst ab jetzt das vegitarische Menu"
+            chat_id=update.effective_chat.id,
+            text="Du erhälst ab jetzt das vegitarische Menu",
         )
         logging.info(f"{update.effective_chat.id} is now registered for Veggi")
 
     else:
         await context.bot.send_message(
-            chat_id=update.effective_chat.id, text="Du erhälst bereits das vegitarische Menü"
+            chat_id=update.effective_chat.id,
+            text="Du erhälst bereits das vegitarische Menü",
         )
         logging.info(f"{update.effective_chat.id} was already registered for Veggi")
-
 
 
 # Remove User from Menu
@@ -226,7 +228,8 @@ async def fries_rem(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         logging.info(f"{update.effective_chat.id} was not signed up for Fries")
 
-# Remove User From Veggi 
+
+# Remove User From Veggi
 async def veggi_rem(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         client = Veggi.get(chat_id=update.effective_chat.id)
@@ -266,11 +269,15 @@ async def menu_message(context: ContextTypes.DEFAULT_TYPE):
     context.application.create_task(asyncio.gather(*msg_gen))
     logging.info("Finished sending menu")
 
+
 async def veggi_message(context: ContextTypes.DEFAULT_TYPE):
     logging.info("Getting update for Veggi messages")
 
     main, _ = parse_menu()
-    veggi_options = main.loc[main['Art'].str.contains('\N{carrot}') | main['Art'].str.contains('\N{broccoli}')]
+    veggi_options = main.loc[
+        main["Art"].str.contains("\N{carrot}")
+        | main["Art"].str.contains("\N{broccoli}")
+    ]
     print(veggi_options)
     message = gen_message(veggi_options)
 
@@ -298,7 +305,6 @@ async def fries_message(context: ContextTypes.DEFAULT_TYPE):
         msg_gen = send_msg(context, Fries, message)
         context.application.create_task(asyncio.gather(*msg_gen))
         logging.info("Finished sending no fries alert")
-
 
 
 # shutdown function:
@@ -337,7 +343,6 @@ if __name__ == "__main__":
     job_Fries = job_queue.run_daily(
         veggi_message, time=send_time, days=(1, 2, 3, 4, 5), job_kwargs=scheduler_kwargs
     )
-
 
     # Command Handler Functions
     start_handler = CommandHandler("start", start_msg)
