@@ -278,7 +278,6 @@ async def veggi_message(context: ContextTypes.DEFAULT_TYPE):
         main["Art"].str.contains("\N{carrot}")
         | main["Art"].str.contains("\N{broccoli}")
     ]
-    print(veggi_options)
     message = gen_message(veggi_options)
 
     logging.info("Start sending veggi")
