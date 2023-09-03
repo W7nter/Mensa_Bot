@@ -35,7 +35,7 @@ logging.basicConfig(
 # Setting up Database
 db = SqliteDatabase(db_path)
 
-# Users who recive menu
+# Users who receive menu
 class Menu(Model):
     chat_id = IntegerField(unique=True)
 
@@ -43,7 +43,7 @@ class Menu(Model):
         database = db
 
 
-# Users who recive Fry Alert
+# Users who receive Fry Alert
 class Fries(Model):
     chat_id = IntegerField(unique=True)
 
@@ -51,7 +51,7 @@ class Fries(Model):
         database = db
 
 
-# Users who recive vegitarian menu
+# Users who receive vegetarian menu
 class Veggi(Model):
     chat_id = IntegerField(unique=True)
 
@@ -144,13 +144,13 @@ async def menu_signup(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if created:
         await context.bot.send_message(
-            chat_id=update.effective_chat.id, text="Du erhälst ab jetzt das Mensa Menü"
+            chat_id=update.effective_chat.id, text="Du erhältst ab jetzt das Mensa Menü"
         )
         logging.info(f"{update.effective_chat.id} is now registered for Menu")
 
     else:
         await context.bot.send_message(
-            chat_id=update.effective_chat.id, text="Du erhälst bereits das Mensa Menü"
+            chat_id=update.effective_chat.id, text="Du erhältst bereits das Mensa Menü"
         )
         logging.info(f"{update.effective_chat.id} was already registered for Menu")
 
@@ -162,13 +162,13 @@ async def fries_signup(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if created:
         await context.bot.send_message(
-            chat_id=update.effective_chat.id, text="Du erhälst ab jetzt den Pommesalarm"
+            chat_id=update.effective_chat.id, text="Du erhältst ab jetzt den Pommesalarm"
         )
         logging.info(f"{update.effective_chat.id} is now registered for Fries")
 
     else:
         await context.bot.send_message(
-            chat_id=update.effective_chat.id, text="Du erhälst bereits den Pommesalarm"
+            chat_id=update.effective_chat.id, text="Du erhältst bereits den Pommesalarm"
         )
         logging.info(f"{update.effective_chat.id} was already registered for Fries")
 
@@ -181,14 +181,14 @@ async def veggi_signup(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if created:
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text="Du erhälst ab jetzt das vegitarische Menu",
+            text="Du erhältst ab jetzt das vegetarische Menu",
         )
         logging.info(f"{update.effective_chat.id} is now registered for Veggi")
 
     else:
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text="Du erhälst bereits das vegitarische Menü",
+            text="Du erhältst bereits das vegetarische Menü",
         )
         logging.info(f"{update.effective_chat.id} was already registered for Veggi")
 
@@ -200,7 +200,7 @@ async def menu_rem(update: Update, context: ContextTypes.DEFAULT_TYPE):
         client.delete_instance()
 
         await context.bot.send_message(
-            chat_id=update.effective_chat.id, text="Du erhälst nun das Menü nicht mehr"
+            chat_id=update.effective_chat.id, text="Du erhältst nun das Menü nicht mehr"
         )
         logging.info(f"{update.effective_chat.id} was deleted from Menu")
     except:
@@ -218,7 +218,7 @@ async def fries_rem(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text="Du erhälst nun den Pommesalarm nicht mehr",
+            text="Du erhältst nun den Pommesalarm nicht mehr",
         )
         logging.info(f"{update.effective_chat.id} was deleted from fries")
     except:
@@ -237,13 +237,13 @@ async def veggi_rem(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text="Du erhälst nun das vegitarische Menü nicht mehr",
+            text="Du erhältst nun das vegetarische Menü nicht mehr",
         )
         logging.info(f"{update.effective_chat.id} was deleted from Veggi")
     except:
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text="Du hast das vegitarische Menü noch nie erhalten",
+            text="Du hast das vegetarische Menü noch nie erhalten",
         )
         logging.info(f"{update.effective_chat.id} was not signed up for Veggi")
 
@@ -293,7 +293,7 @@ async def fries_message(context: ContextTypes.DEFAULT_TYPE):
 
     if check_fries(side):
         logging.info("Start sending fries alert")
-        message = "Es ist alles gut, die Welt ist in Ordnung, es gibt Pommes"
+        message = "\N{green check}Es ist alles gut, die Welt ist in Ordnung, es gibt Pommes."
         msg_gen = send_msg(context, Fries, message)
         context.application.create_task(asyncio.gather(*msg_gen))
         logging.info("Finished sending fries alert")
