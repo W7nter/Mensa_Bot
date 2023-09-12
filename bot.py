@@ -91,7 +91,7 @@ def parse_menu():
             new_emoji = {
                 "Vegane Speise": "\N{broccoli}",
                 "Mit Rindfleisch": "\N{cow face}",
-                "Fleisch aus artgerechter Haltung": "\N{check mark}",
+                "Fleisch aus artgerechter Haltung": "\N{white heavy check mark}",
                 "Mit Fisch bzw. Meeresfrüchten": "\N{fish}",
                 "Ohne Fleisch": "\N{carrot}",
                 "Mit Geflügel": "\N{chicken}",
