@@ -103,6 +103,10 @@ def parse_menu():
 
         df.iloc[idx, 2] = emoji
 
+    # Redesign of Website renamed Art to Type -> rename Pandas header to old style
+    legacy_names = {'Type': 'Art', 'Beschäftigte': 'Bedienstete'}
+    df = df.rename(legacy_names, axis="columns")
+    
     Beiwerkindex = df.index[df.Menü.eq("Beiwerke")][0]
     main_dishes = df.iloc[0:Beiwerkindex]
     side_dishes = df.iloc[
