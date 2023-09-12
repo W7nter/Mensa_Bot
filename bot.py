@@ -103,6 +103,10 @@ def parse_menu():
 
         df.iloc[idx, 2] = emoji
 
+    # Redesign of Website renamed Art to Type -> rename Pandas header to old style
+    legacy_names = {'Type': 'Art', 'Beschäftigte': 'Bedienstete'}
+    df = df.rename(legacy_names, axis="columns")
+    
     Beiwerkindex = df.index[df.Menü.eq("Beiwerke")][0]
     main_dishes = df.iloc[0:Beiwerkindex]
     side_dishes = df.iloc[
@@ -293,7 +297,7 @@ async def fries_message(context: ContextTypes.DEFAULT_TYPE):
 
     if check_fries(side):
         logging.info("Start sending fries alert")
-        message = "\N{green check}Es ist alles gut, die Welt ist in Ordnung, es gibt Pommes."
+        message = "\N{white heavy check mark}Es ist alles gut, die Welt ist in Ordnung, es gibt Pommes."
         msg_gen = send_msg(context, Fries, message)
         context.application.create_task(asyncio.gather(*msg_gen))
         logging.info("Finished sending fries alert")
